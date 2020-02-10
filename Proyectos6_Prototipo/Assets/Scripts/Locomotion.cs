@@ -6,22 +6,28 @@ public class Locomotion : MonoBehaviour
 {
 
     [SerializeField] float speed = 1;
+    [SerializeField] float forceSpeed = 0.2f;
     [SerializeField] float jumpForce = 5;
+    GrapplingHook myHook;
     Rigidbody2D myRB;
     Vector2 movement;
 
     private void Start()
     {
         myRB = GetComponent<Rigidbody2D>();
+        myHook = GetComponent<GrapplingHook>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //float xInput = Input.GetAxis("Horizontal");
         movement.x = Input.GetAxis("Horizontal");
 
-        //transform.position += new Vector3(xInput, 0, 0) * speed;
+        if (!myHook.HookActive())
+        {
+            transform.position += new Vector3(movement.x, 0, 0) * speed;
+        }
+
         //myRB.MovePosition(movement * speed);
 
 
@@ -35,6 +41,10 @@ public class Locomotion : MonoBehaviour
     {
         //myRB.MovePosition(myRB.position + movement);
         //myRB.MovePosition((myRB.position + movement) * speed);
-        myRB.velocity += (Vector2.right * movement.x) * speed;
+        if (myHook.HookActive())
+        {
+            myRB.velocity += (Vector2.right * movement.x) * forceSpeed;
+        }
+            
     }
 }

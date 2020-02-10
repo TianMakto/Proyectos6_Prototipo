@@ -41,4 +41,16 @@ public class GrapplingHook : MonoBehaviour
             }
         }
     }
+
+    public bool HookActive()
+    {
+        if (!hook.isActiveAndEnabled)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
