@@ -7,6 +7,7 @@ public class GrapplingHook : MonoBehaviour
     DistanceJoint2D hook;
     Vector3 targetedPos;
     RaycastHit2D hit;
+    [SerializeField] LineRenderer lineHook;
     [SerializeField] float distance = 10;
     [SerializeField] LayerMask mask;
 
@@ -27,18 +28,25 @@ public class GrapplingHook : MonoBehaviour
 
                 hit = Physics2D.Raycast(transform.position, targetedPos - transform.position, distance, mask);
                 Debug.DrawRay(transform.position, targetedPos - transform.position, Color.green, 5);
-                print(hit.collider.gameObject.name);
                 if(hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                 {
                     hook.enabled = true;
                     hook.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     hook.distance = Vector2.Distance(transform.position, hit.point);
+                    lineHook.SetPosition(1, hit.collider.gameObject.transform.position);
                 }
             }
             else
             {
                 hook.enabled = false;
+                lineHook.SetPosition(1, this.transform.position);
+                lineHook.SetPosition(0, this.transform.position);
             }
+        }
+
+        if (HookActive())
+        {
+            lineHook.SetPosition(0, this.transform.position);
         }
     }
 
