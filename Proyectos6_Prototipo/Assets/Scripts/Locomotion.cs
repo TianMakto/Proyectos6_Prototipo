@@ -21,7 +21,7 @@ public class Locomotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxis("Horizontal") * forceSpeed;
+        movement.x = Input.GetAxis("Horizontal") ;
 
         //if (!myHook.HookActive())
         //{
@@ -41,7 +41,8 @@ public class Locomotion : MonoBehaviour
     {
         if(movement.x != 0 && !myHook.HookActive())
         {
-            myRB.velocity = new Vector2(movement.x, myRB.velocity.y);
+            //myRB.velocity = new Vector2(movement.x, myRB.velocity.y);
+            transform.position += transform.right * movement.x * speed;
         }
 
         if (myHook.HookActive())
@@ -51,7 +52,7 @@ public class Locomotion : MonoBehaviour
             Vector2 anchorPointDir = anchorPoint - (Vector2)this.transform.position;
             Vector2 movementDirection = -Vector2.Perpendicular(anchorPointDir);
             Debug.DrawRay(this.transform.position, movementDirection, Color.red, 0.5f);
-            myRB.velocity += movementDirection * movement.x * Time.deltaTime;
+            myRB.velocity += movementDirection * movement.x * forceSpeed * Time.deltaTime;
         }
 
 

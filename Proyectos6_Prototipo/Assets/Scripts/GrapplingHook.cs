@@ -8,7 +8,7 @@ public class GrapplingHook : MonoBehaviour
     Vector3 targetedPos;
     RaycastHit2D hit;
     [SerializeField] LineRenderer lineHook;
-    [SerializeField] float distance = 10;
+    [SerializeField] float distanceToHook = 15;
     [SerializeField] LayerMask mask;
 
     private void Start()
@@ -26,7 +26,7 @@ public class GrapplingHook : MonoBehaviour
                 targetedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 targetedPos.z = 0;
 
-                hit = Physics2D.Raycast(transform.position, targetedPos - transform.position, distance, mask);
+                hit = Physics2D.Raycast(transform.position, targetedPos - transform.position, distanceToHook, mask);
                 if(hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                 {
                     Debug.DrawRay(transform.position, targetedPos - transform.position, Color.green, 5);
