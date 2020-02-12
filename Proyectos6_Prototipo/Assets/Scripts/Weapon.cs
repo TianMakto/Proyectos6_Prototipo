@@ -16,9 +16,10 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && ammo > 0)
+        if (Input.GetMouseButtonDown(0) && ammo > 0 && !transform.parent.transform.parent.GetComponent<Life_Base>().dead)
         {
-            Instantiate(bulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
+            GameObject newBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
+            newBullet.GetComponent<Bullet>().damage = damage;
             ammo--;
         }
     }

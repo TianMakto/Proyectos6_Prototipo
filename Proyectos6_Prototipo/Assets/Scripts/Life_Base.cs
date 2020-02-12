@@ -11,15 +11,27 @@ public class Life_Base : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+        if (GetComponent<Locomotion>())
+        {
+            UI_Manager.Instance.setHP(currentHP, maxHP);
+        }
     }
 
     public void receiveDamage(float damage)
     {
         currentHP -= damage;
-        if(currentHP <= 0)
+        if(currentHP <= 0 && !dead)
         {
             currentHP = 0;
             dead = true;
+            if (!GetComponent<Locomotion>())
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        if (GetComponent<Locomotion>())
+        {
+            UI_Manager.Instance.setHP(currentHP, maxHP);
         }
     }
 

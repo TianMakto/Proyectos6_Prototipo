@@ -8,6 +8,7 @@ public class Locomotion : MonoBehaviour
     [SerializeField] float speed = 1;
     [SerializeField] float forceSpeed = 0.2f;
     [SerializeField] float jumpForce = 5;
+    Life_Base mylife;
     GrapplingHook myHook;
     Rigidbody2D myRB;
     Vector2 movement;
@@ -16,6 +17,7 @@ public class Locomotion : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody2D>();
         myHook = GetComponent<GrapplingHook>();
+        mylife = GetComponent<Life_Base>();
     }
 
     // Update is called once per frame
@@ -31,7 +33,7 @@ public class Locomotion : MonoBehaviour
         //myRB.MovePosition(movement * speed);
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !mylife.dead)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
         }
@@ -39,20 +41,23 @@ public class Locomotion : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(movement.x != 0 && !myHook.HookActive())
+        if (!mylife.dead)
         {
-            //myRB.velocity = new Vector2(movement.x, myRB.velocity.y);
-            transform.position += transform.right * movement.x * speed;
-        }
+            if(movement.x != 0 && !myHook.HookActive())
+            {
+                //myRB.velocity = new Vector2(movement.x, myRB.velocity.y);
+                transform.position += transform.right * movement.x * speed;
+            }
 
-        if (myHook.HookActive())
-        {
-            //transform.up = GetComponent<DistanceJoint2D>().connectedAnchor;
-            Vector2 anchorPoint = GetComponent<DistanceJoint2D>().connectedBody.transform.position;
-            Vector2 anchorPointDir = anchorPoint - (Vector2)this.transform.position;
-            Vector2 movementDirection = -Vector2.Perpendicular(anchorPointDir);
-            Debug.DrawRay(this.transform.position, movementDirection, Color.red, 0.5f);
-            myRB.velocity += movementDirection * movement.x * forceSpeed * Time.deltaTime;
+            if (myHook.HookActive())
+            {
+                //transform.up = GetComponent<DistanceJoint2D>().connectedAnchor;
+                Vector2 anchorPoint = GetComponent<DistanceJoint2D>().connectedBody.transform.position;
+                Vector2 anchorPointDir = anchorPoint - (Vector2)this.transform.position;
+                Vector2 movementDirection = -Vector2.Perpendicular(anchorPointDir);
+                Debug.DrawRay(this.transform.position, movementDirection, Color.red, 0.5f);
+                myRB.velocity += movementDirection * movement.x * forceSpeed * Time.deltaTime;
+            }
         }
 
 
@@ -66,5 +71,14 @@ public class Locomotion : MonoBehaviour
             //print(move.x);
         //}
         //myRB.MovePosition(myRB.position + movement + new Vector2(0, -myRB.gravityScale/10));
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        print("DAÑAZO BROO");
+        if(other.gameObject.GetComponent<AcidRain>())
+        {
+            GetComponent<Life_Base>().receiveDamage(other.GetComponent<AcidRain>().damage);
+        }
     }
 }

@@ -5,9 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [System.NonSerialized] public float damage;
-    [SerializeField] float speed;
+    [SerializeField] float speed = 10;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        Destroy(this.gameObject, 10);
+    }
+
     void Update()
     {
         transform.position += transform.right * speed * Time.deltaTime;

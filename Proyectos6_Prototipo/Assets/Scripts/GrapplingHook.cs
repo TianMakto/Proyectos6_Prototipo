@@ -19,7 +19,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !GetComponent<Life_Base>().dead)
         {
             if (!hook.isActiveAndEnabled)
             {
