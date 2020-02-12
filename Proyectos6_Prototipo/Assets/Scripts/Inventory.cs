@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] List<GameObject> inventory = new List<GameObject>();
+    [SerializeField] GameObject currentObject;
+    int index;
+
+    private void Start()
     {
-        
+        currentObject = inventory[0];
+        index = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(Input.mouseScrollDelta.y > 0)
+        {
+            if(index < inventory.Count)
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+
+            currentObject = inventory[index];
+        }
+        else if(Input.mouseScrollDelta.y < 0)
+        {
+            if (index > 0)
+            {
+                index--;
+            }
+            else
+            {
+                index = inventory.Count - 1;
+            }
+        }
     }
 }
