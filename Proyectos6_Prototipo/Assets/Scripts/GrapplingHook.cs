@@ -27,9 +27,9 @@ public class GrapplingHook : MonoBehaviour
                 targetedPos.z = 0;
 
                 hit = Physics2D.Raycast(transform.position, targetedPos - transform.position, distance, mask);
-                Debug.DrawRay(transform.position, targetedPos - transform.position, Color.green, 5);
                 if(hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                 {
+                    Debug.DrawRay(transform.position, targetedPos - transform.position, Color.green, 5);
                     hook.enabled = true;
                     hook.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     hook.distance = Vector2.Distance(transform.position, hit.point);
