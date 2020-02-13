@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float clipSize = 8;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject shootingPoint;
+    float clips;
     float ammo;
     private void Start()
     {
@@ -22,6 +23,11 @@ public class Weapon : MonoBehaviour
             newBullet.GetComponent<Bullet>().damage = damage;
             ammo--;
         }
+    }
+
+    public void Recharge()
+    {
+        ammo = clipSize;
     }
 
 }
