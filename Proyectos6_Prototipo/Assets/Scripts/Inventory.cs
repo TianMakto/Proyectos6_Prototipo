@@ -8,22 +8,31 @@ public class Inventory : MonoBehaviour
     float clips;
     float medkits;
 
+    private void Start()
+    {
+        UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
+        UI_Manager.Instance.setMedkit(medkits);
+    }
+
     public void TakeAClip()
     {
         clips++;
+        UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
     }
 
     public void TakeAMedkit()
     {
         medkits++;
+        UI_Manager.Instance.setMedkit(medkits);
     }
 
     public void UseClip()
     {
         if(clips > 0)
         {
-            transform.Find("Weapon").GetComponent<Weapon>().Recharge();
+            transform.Find("Hand/Weapon").GetComponent<Weapon>().Recharge();
             clips--;
+            UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
         }
     }
 
@@ -33,6 +42,7 @@ public class Inventory : MonoBehaviour
         {
             GetComponent<Life_Base>().Heal(heal);
             medkits--;
+            UI_Manager.Instance.setMedkit(medkits);
         }
     }
 
@@ -47,5 +57,10 @@ public class Inventory : MonoBehaviour
         {
             UseMedKit();
         }
+    }
+
+    public float GetClips()
+    {
+        return clips;
     }
 }

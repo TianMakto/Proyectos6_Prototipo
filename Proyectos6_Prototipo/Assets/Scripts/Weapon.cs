@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] float clipSize = 8;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject shootingPoint;
-    float clips;
     float ammo;
     private void Start()
     {
@@ -22,6 +21,7 @@ public class Weapon : MonoBehaviour
             GameObject newBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
             newBullet.GetComponent<Bullet>().damage = damage;
             ammo--;
+            UI_Manager.Instance.setAmo(ammo, transform.parent.transform.parent.GetComponent<Inventory>().GetClips());
         }
     }
 
@@ -30,4 +30,8 @@ public class Weapon : MonoBehaviour
         ammo = clipSize;
     }
 
+    public float GetAmmo()
+    {
+        return ammo;
+    }
 }
