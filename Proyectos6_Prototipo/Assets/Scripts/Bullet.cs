@@ -23,6 +23,9 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<Life_Base>().receiveDamage(damage);
         }
-        Destroy(this.gameObject);
+        if (collision.gameObject.tag != "Player")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
