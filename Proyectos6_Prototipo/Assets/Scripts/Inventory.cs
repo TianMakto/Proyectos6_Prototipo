@@ -8,6 +8,9 @@ public class Inventory : MonoBehaviour
     float clips;
     float medkits;
 
+    [SerializeField] List<GameObject> inventory = new List<GameObject>();
+    GameObject currentGO;
+
     private void Start()
     {
         UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
@@ -48,15 +51,15 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            UseClip();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    UseClip();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            UseMedKit();
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    UseMedKit();
+        //}
     }
 
     public float GetClips()
