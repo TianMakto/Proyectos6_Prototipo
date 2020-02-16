@@ -17,6 +17,7 @@ public class Locomotion : MonoBehaviour
     Rigidbody2D myRB;
     Vector2 movement;
     bool isGrounded;
+    float jumpCounter;
 
     private void Start()
     {
@@ -39,10 +40,20 @@ public class Locomotion : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !mylife.dead)
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
+            if (isGrounded)
+            {
+                jumpCounter = 1;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
+            }
+            else if(jumpCounter < 2)
+            {
+                jumpCounter++;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
+            }
+
         }
 
-        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.95f, 0.3f), 0, Ground);
+        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, Ground);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

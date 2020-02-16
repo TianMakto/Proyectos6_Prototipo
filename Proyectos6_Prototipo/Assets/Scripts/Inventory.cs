@@ -41,7 +41,6 @@ public class Inventory : MonoBehaviour
             else
                 index = inventory.Count - 1;
             UI_Manager.Instance.setCurrentObject(inventory[index]);
-            print("pabajo con " + index);
         }
 
         if (Input.mouseScrollDelta.y > 0)
@@ -51,7 +50,6 @@ public class Inventory : MonoBehaviour
             else
                 index = 0;
             UI_Manager.Instance.setCurrentObject(inventory[index]);
-            print("parriba con " + index);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {

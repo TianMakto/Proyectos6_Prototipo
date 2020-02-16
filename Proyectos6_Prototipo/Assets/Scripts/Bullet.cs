@@ -25,6 +25,10 @@ public class Bullet : MonoBehaviour
         }
         if (collision.gameObject.tag != "Player")
         {
+            if (collision.gameObject.GetComponent<DestructibleRope>())
+            {
+                collision.gameObject.GetComponent<DestructibleRope>().BreakRope();
+            }
             Destroy(this.gameObject);
         }
     }
