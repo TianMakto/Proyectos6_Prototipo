@@ -9,7 +9,7 @@ public class Clip : MonoBehaviour
             //print("VAMOOOOS");
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Inventory>().TakeAClip();
+            collision.transform.Find("Inventory").GetComponent<Inventory>().TakeAClip();
             Destroy(this.gameObject);
         }
     }

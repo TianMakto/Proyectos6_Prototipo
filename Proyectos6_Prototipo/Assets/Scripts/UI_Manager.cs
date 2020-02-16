@@ -10,6 +10,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] TextMeshProUGUI ammoText;
     [SerializeField] TextMeshProUGUI medkitText;
 
+    GameObject player;
+
     static UI_Manager instance;
 
     public static UI_Manager Instance { get => instance; }
@@ -17,20 +19,21 @@ public class UI_Manager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public void setHP(float currentHp, float maxHp)
+    public void setHP()
     {
-        hpBar.fillAmount = currentHp / maxHp;
+        hpBar.fillAmount = player.GetComponent<Life_Base>().getHP();
     }
 
-    public void setAmo(float ammo, float clips)
+    public void setAmo(float ammo)
     {
-        ammoText.text = ammo + " / " + clips;
+        ammoText.text = ammo + " bullets";
     }
 
-    public void setMedkit(float medkits)
+    public void setCurrentObject(InventoryItem go)
     {
-        medkitText.text = "Medkits: " + medkits;
+        medkitText.text = go.name + ": " + go.uses;
     }
 }

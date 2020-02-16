@@ -4,66 +4,58 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    float heal = 30;
-    float clips;
-    float medkits;
-
-    [SerializeField] List<GameObject> inventory = new List<GameObject>();
-    GameObject currentGO;
+    [SerializeField] List<InventoryItem> inventory = new List<InventoryItem>();
+    int index;
 
     private void Start()
     {
-        UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
-        UI_Manager.Instance.setMedkit(medkits);
+        index = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            inventory.Add(transform.GetChild(i).GetComponent<InventoryItem>());
+        }
+        //UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo());
+        UI_Manager.Instance.setCurrentObject(inventory[index]);
+        //UI_Manager.Instance.setMedkit(medkits);
     }
 
     public void TakeAClip()
     {
-        clips++;
-        UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
+        transform.Find("Clip Item").GetComponent<InventoryItem>().addUse();
+        UI_Manager.Instance.setCurrentObject(inventory[index]);
     }
 
     public void TakeAMedkit()
     {
-        medkits++;
-        UI_Manager.Instance.setMedkit(medkits);
-    }
-
-    public void UseClip()
-    {
-        if(clips > 0)
-        {
-            transform.Find("Hand/Weapon").GetComponent<Weapon>().Recharge();
-            clips--;
-            UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo(), clips);
-        }
-    }
-
-    public void UseMedKit()
-    {
-        if(medkits > 0)
-        {
-            GetComponent<Life_Base>().Heal(heal);
-            medkits--;
-            UI_Manager.Instance.setMedkit(medkits);
-        }
+        transform.Find("Medkit Item").GetComponent<InventoryItem>().addUse();
+        UI_Manager.Instance.setCurrentObject(inventory[index]);
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    UseClip();
-        //}
 
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    UseMedKit();
-        //}
-    }
+        if(Input.mouseScrollDelta.y < 0)
+        {
+            if (index > 0)
+                index--;
+            else
+                index = inventory.Count - 1;
+            UI_Manager.Instance.setCurrentObject(inventory[index]);
+            print("pabajo con " + index);
+        }
 
-    public float GetClips()
-    {
-        return clips;
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            if (index < inventory.Count - 1)
+                index++;
+            else
+                index = 0;
+            UI_Manager.Instance.setCurrentObject(inventory[index]);
+            print("parriba con " + index);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            inventory[index].Use();
+        }
     }
 }

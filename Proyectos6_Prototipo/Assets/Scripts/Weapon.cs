@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         ammo = clipSize;
+        UI_Manager.Instance.setAmo(ammo);
     }
 
     private void Update()
@@ -21,7 +22,7 @@ public class Weapon : MonoBehaviour
             GameObject newBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
             newBullet.GetComponent<Bullet>().damage = damage;
             ammo--;
-            UI_Manager.Instance.setAmo(ammo, transform.parent.transform.parent.GetComponent<Inventory>().GetClips());
+            UI_Manager.Instance.setAmo(ammo);
         }
     }
 

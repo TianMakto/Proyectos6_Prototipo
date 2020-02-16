@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Locomotion : MonoBehaviour
 {
 
     [SerializeField] float speed = 1;
     [SerializeField] float forceSpeed = 0.2f;
+    [SerializeField] float forceWalkingSpeed = 5;
     [SerializeField] float jumpForce = 5;
+    [SerializeField] Transform feet;
+    [SerializeField] LayerMask Ground;
     Life_Base mylife;
     GrapplingHook myHook;
     Rigidbody2D myRB;
     Vector2 movement;
+    bool isGrounded;
 
     private void Start()
     {
@@ -32,10 +37,16 @@ public class Locomotion : MonoBehaviour
 
         //myRB.MovePosition(movement * speed);
 
-
         if (Input.GetKeyDown(KeyCode.Space) && !mylife.dead)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
+        }
+
+        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.95f, 0.3f), 0, Ground);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -45,8 +56,17 @@ public class Locomotion : MonoBehaviour
         {
             if(movement.x != 0 && !myHook.HookActive())
             {
-                //myRB.velocity = new Vector2(movement.x, myRB.velocity.y);
-                transform.position += transform.right * movement.x * speed;
+                //if (isGrounded)
+                {
+                    //myRB.velocity = new Vector2(movement.x * forceWalkingSpeed, myRB.velocity.y);
+                    transform.position += transform.right * movement.x * speed;
+                }
+                //else
+                //{
+                //    float addedForce = movement.x * (forceWalkingSpeed / 10);
+                //    //myRB.velocity = new Vector2(Mathf.Clamp(myRB.velocity.x + movement.x * (forceWalkingSpeed/10), -10, 10), myRB.velocity.y); 
+                //    myRB.velocity += new Vector2(Mathf.Clamp(movement.x * (forceWalkingSpeed / 10), -10, 10), 0);
+                //}
             }
 
             if (myHook.HookActive())
@@ -75,7 +95,6 @@ public class Locomotion : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        print("DAÑAZO BROO");
         if(other.gameObject.GetComponent<AcidRain>())
         {
             GetComponent<Life_Base>().receiveDamage(other.GetComponent<AcidRain>().damage);

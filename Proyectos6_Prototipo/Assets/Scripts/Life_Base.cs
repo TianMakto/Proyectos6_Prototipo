@@ -13,7 +13,7 @@ public class Life_Base : MonoBehaviour
         currentHP = maxHP;
         if (GetComponent<Locomotion>())
         {
-            UI_Manager.Instance.setHP(currentHP, maxHP);
+            UI_Manager.Instance.setHP();
         }
     }
 
@@ -31,7 +31,7 @@ public class Life_Base : MonoBehaviour
         }
         if (GetComponent<Locomotion>())
         {
-            UI_Manager.Instance.setHP(currentHP, maxHP);
+            UI_Manager.Instance.setHP();
         }
     }
 
@@ -44,7 +44,12 @@ public class Life_Base : MonoBehaviour
         }
         if (GetComponent<Locomotion>())
         {
-            UI_Manager.Instance.setHP(currentHP, maxHP);
+            UI_Manager.Instance.setHP();
         }
+    }
+
+    public float getHP()
+    {
+        return (currentHP / maxHP);
     }
 }

@@ -8,7 +8,7 @@ public class FirstAidKit : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Inventory>().TakeAMedkit();
+            collision.transform.Find("Inventory").GetComponent<Inventory>().TakeAMedkit();
             Destroy(this.gameObject);
         }
     }
