@@ -29,6 +29,7 @@ public class Weapon : MonoBehaviour
     public void Recharge()
     {
         ammo = clipSize;
+        UI_Manager.Instance.setAmo(ammo);
     }
 
     public float GetAmmo()

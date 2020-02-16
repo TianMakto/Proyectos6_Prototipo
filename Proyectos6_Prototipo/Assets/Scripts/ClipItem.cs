@@ -9,7 +9,7 @@ public class ClipItem : InventoryItem
         if (uses > 0)
         {
             uses--;
-            transform.parent.transform.Find("Hand/Weapon").GetComponent<Weapon>().Recharge();
+            transform.parent.transform.parent.transform.Find("Hand/Weapon").GetComponent<Weapon>().Recharge();
             UI_Manager.Instance.setHP();
             UI_Manager.Instance.setCurrentObject(this);
         }
