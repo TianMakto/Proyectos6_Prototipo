@@ -31,13 +31,6 @@ public class Locomotion : MonoBehaviour
     {
         movement.x = Input.GetAxis("Horizontal") ;
 
-        //if (!myHook.HookActive())
-        //{
-        //    transform.position += new Vector3(movement.x, 0, 0) * speed;
-        //}
-
-        //myRB.MovePosition(movement * speed);
-
         if (Input.GetKeyDown(KeyCode.Space) && !mylife.dead)
         {
             if (isGrounded)
@@ -72,22 +65,11 @@ public class Locomotion : MonoBehaviour
         {
             if(movement.x != 0 && !myHook.HookActive())
             {
-                //if (isGrounded)
-                {
-                    //myRB.velocity = new Vector2(movement.x * forceWalkingSpeed, myRB.velocity.y);
-                    transform.position += transform.right * movement.x * speed;
-                }
-                //else
-                //{
-                //    float addedForce = movement.x * (forceWalkingSpeed / 10);
-                //    //myRB.velocity = new Vector2(Mathf.Clamp(myRB.velocity.x + movement.x * (forceWalkingSpeed/10), -10, 10), myRB.velocity.y); 
-                //    myRB.velocity += new Vector2(Mathf.Clamp(movement.x * (forceWalkingSpeed / 10), -10, 10), 0);
-                //}
+                transform.position += transform.right * movement.x * speed;
             }
 
             if (myHook.HookActive())
             {
-                //transform.up = GetComponent<DistanceJoint2D>().connectedAnchor;
                 Vector2 anchorPoint = GetComponent<DistanceJoint2D>().connectedBody.transform.position;
                 Vector2 anchorPointDir = anchorPoint - (Vector2)this.transform.position;
                 Vector2 movementDirection = -Vector2.Perpendicular(anchorPointDir);
@@ -95,18 +77,6 @@ public class Locomotion : MonoBehaviour
                 myRB.velocity += movementDirection * movement.x * forceSpeed * Time.deltaTime;
             }
         }
-
-
-
-        //myRB.MovePosition(myRB.position + movement);
-        //myRB.MovePosition((myRB.position + movement) * speed);
-        //if (myHook.HookActive())
-        //{
-            //Vector2 move = myRB.velocity;
-            //move.x = (Vector2.right.x * movement.x);
-            //print(move.x);
-        //}
-        //myRB.MovePosition(myRB.position + movement + new Vector2(0, -myRB.gravityScale/10));
     }
 
     private void OnParticleCollision(GameObject other)
