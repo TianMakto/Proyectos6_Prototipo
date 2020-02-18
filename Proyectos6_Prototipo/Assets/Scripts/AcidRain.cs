@@ -5,4 +5,5 @@ using UnityEngine;
 public class AcidRain : MonoBehaviour
 {
     public float damage = 5;
+    public bool canDamage = true;
 }

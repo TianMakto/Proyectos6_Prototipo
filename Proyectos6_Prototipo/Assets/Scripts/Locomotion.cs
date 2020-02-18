@@ -19,6 +19,11 @@ public class Locomotion : MonoBehaviour
     bool isGrounded;
     float jumpCounter;
 
+    public float GetJumpforce()
+    {
+        return jumpForce + myRB.gravityScale;
+    }
+
     private void Start()
     {
         myRB = GetComponent<Rigidbody2D>();
