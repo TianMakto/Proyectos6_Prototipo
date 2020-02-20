@@ -33,14 +33,16 @@ public class GrapplingHook : MonoBehaviour
                     hook.enabled = true;
                     hook.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     hook.distance = Vector2.Distance(transform.position, hit.point);
-                    lineHook.SetPosition(1, hit.collider.gameObject.transform.position);
+                    Vector3 pos = hit.collider.gameObject.transform.position;
+                    lineHook.SetPosition(1, new Vector3(pos.x, pos.y, -0.5f));
                 }
             }
             else
             {
                 hook.enabled = false;
-                lineHook.SetPosition(1, this.transform.position);
-                lineHook.SetPosition(0, this.transform.position);
+                Vector3 pos = this.transform.position;
+                lineHook.SetPosition(1, new Vector3(pos.x, pos.y, -0.5f));
+                lineHook.SetPosition(0, new Vector3(pos.x, pos.y, -0.5f));
             }
         }
 

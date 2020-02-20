@@ -21,6 +21,7 @@ public class Weapon : MonoBehaviour
         {
             GameObject newBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
             newBullet.GetComponent<Bullet>().damage = damage;
+            newBullet.GetComponent<Rigidbody2D>().velocity = transform.right * transform.parent.transform.parent.GetComponent<Rigidbody2D>().velocity;
             ammo--;
             UI_Manager.Instance.setAmo(ammo);
         }

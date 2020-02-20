@@ -12,7 +12,16 @@ public class Inventory : MonoBehaviour
         index = 0;
         for (int i = 0; i < transform.childCount; i++)
         {
-            inventory.Add(transform.GetChild(i).GetComponent<InventoryItem>());
+            if (transform.GetChild(i).GetComponent<InventoryItem>())
+            {
+                if (transform.GetChild(i).GetComponent<MedkitInventory>())
+                {
+                    if(LevelManager.Instance.LevelType == typeOfLevel.Underground)
+                        inventory.Add(transform.GetChild(i).GetComponent<InventoryItem>());
+                }
+                else
+                    inventory.Add(transform.GetChild(i).GetComponent<InventoryItem>());
+            }
         }
         //UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo());
         UI_Manager.Instance.setCurrentObject(inventory[index]);

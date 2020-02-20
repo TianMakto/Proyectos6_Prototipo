@@ -35,6 +35,7 @@ public class Locomotion : MonoBehaviour
     void Update()
     {
         movement.x = Input.GetAxis("Horizontal") ;
+        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, Ground);
 
         if (Input.GetKeyDown(KeyCode.Space) && !mylife.dead)
         {
@@ -51,7 +52,6 @@ public class Locomotion : MonoBehaviour
 
         }
 
-        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, Ground);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -81,14 +81,6 @@ public class Locomotion : MonoBehaviour
                 Debug.DrawRay(this.transform.position, movementDirection, Color.red, 0.5f);
                 myRB.velocity += movementDirection * movement.x * forceSpeed * Time.deltaTime;
             }
-        }
-    }
-
-    private void OnParticleCollision(GameObject other)
-    {
-        if(other.gameObject.GetComponent<AcidRain>())
-        {
-            GetComponent<Life_Base>().receiveDamage(other.GetComponent<AcidRain>().damage);
         }
     }
 }
