@@ -7,13 +7,14 @@ public class GrapplingHook : MonoBehaviour
     DistanceJoint2D hook;
     Vector3 targetedPos;
     RaycastHit2D hit;
-    [SerializeField] LineRenderer lineHook;
+    LineRenderer lineHook;
     [SerializeField] float distanceToHook = 15;
     [SerializeField] LayerMask mask;
 
     private void Start()
     {
         hook = GetComponent<DistanceJoint2D>();
+        lineHook = GetComponent<LineRenderer>();
         hook.enabled = false;
     }
 

@@ -57,7 +57,7 @@ MonoBehaviour:
   - {fileID: -2111955497899611862, guid: 0936fd96f090b9042a932b52c007116f, type: 3}
   - {fileID: 8471745822729150858, guid: 0936fd96f090b9042a932b52c007116f, type: 3}
   canTorch: 1
-  torchPossibilities: 1
+  torchPossibilities: 3
   torch: {fileID: 2995059802886761085, guid: 8b888eab80a8627409e083016202ff89, type: 3}
 --- !u!1 &1240556339862857626
 GameObject:

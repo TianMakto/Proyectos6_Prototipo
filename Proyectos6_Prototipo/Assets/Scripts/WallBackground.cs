@@ -21,7 +21,7 @@ public class WallBackground : MonoBehaviour
         if (canTorch)
         {
             float random = Random.Range(0, 100);
-            if(random < torchPossibilities)
+            if (random < torchPossibilities && !Physics2D.OverlapBox(transform.position, new Vector2(1,1), 0))
             {
                 Instantiate(torch, transform);
             }
