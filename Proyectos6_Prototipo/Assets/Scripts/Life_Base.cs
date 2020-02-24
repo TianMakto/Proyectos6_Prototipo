@@ -8,6 +8,10 @@ public class Life_Base : MonoBehaviour
     float currentHP;
     [System.NonSerialized] public bool dead;
 
+    //enemy
+    float whiteTimer;
+    bool whiteBool;
+
     private void Start()
     {
         currentHP = maxHP;
@@ -33,6 +37,12 @@ public class Life_Base : MonoBehaviour
         {
             UI_Manager.Instance.setHP();
         }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
+            whiteBool = true;
+            whiteTimer = 0.5f;
+        }
     }
 
     public void Heal(float healAmount)
@@ -51,5 +61,18 @@ public class Life_Base : MonoBehaviour
     public float getHP()
     {
         return (currentHP / maxHP);
+    }
+
+    private void Update()
+    {
+        if (whiteBool)
+        {
+            whiteTimer -= Time.deltaTime;
+            if(whiteTimer < 0)
+            {
+                GetComponent<SpriteRenderer>().color = Color.red;
+                whiteBool = false;
+            }
+        }
     }
 }

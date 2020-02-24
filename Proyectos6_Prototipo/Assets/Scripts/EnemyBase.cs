@@ -11,6 +11,7 @@ enum enemyState
 }
 public class EnemyBase : MonoBehaviour
 {
+    [SerializeField] Transform feet;
     [SerializeField] float speed;
     [SerializeField] float visionDistance;
     [SerializeField] float attackDistance;
@@ -21,6 +22,7 @@ public class EnemyBase : MonoBehaviour
     GameObject player;
     enemyState myState;
     Rigidbody2D rb;
+    bool isGrounded;
 
     private void Start()
     {
@@ -32,20 +34,24 @@ public class EnemyBase : MonoBehaviour
 
     private void Update()
     {
-        if(myState == enemyState.patrol)
+        if (isGrounded)
         {
-            Patrol();
-        }
-        else if(myState == enemyState.chase)
-        {
-            Chase();
-        }
-        else
-        {
-            Attack();
+            if(myState == enemyState.patrol)
+            {
+                Patrol();
+            }
+            else if(myState == enemyState.chase)
+            {
+                Chase();
+            }
+            else
+            {
+                Attack();
+            }
         }
 
         CheckState();
+        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, ground);
     }
 
     private void CheckState()
@@ -67,35 +73,38 @@ public class EnemyBase : MonoBehaviour
 
     private void Patrol()
     {
-        if (facingRight)
+        if (isGrounded)
         {
-            RaycastHit2D hitRay = Physics2D.Raycast(transform.position, Vector2.right, 1, ground);
-            Collider2D frontBlocked = Physics2D.OverlapBox(new Vector2(transform.position.x + 1.5f, transform.position.y), new Vector2(0.5f, 0.5f), 0, ground);
-            Collider2D grounded = Physics2D.OverlapBox(new Vector2(transform.position.x + 1, transform.position.y - 1), new Vector2(0.5f, 0.5f), 0, ground);
-            if (!frontBlocked && grounded)
+            if (facingRight)
             {
-                rb.velocity = Vector2.right * speed / 2;
+                RaycastHit2D hitRay = Physics2D.Raycast(transform.position, Vector2.right, 1, ground);
+                Collider2D frontBlocked = Physics2D.OverlapBox(new Vector2(transform.position.x + 1.5f, transform.position.y), new Vector2(0.5f, 0.5f), 0, ground);
+                Collider2D grounded = Physics2D.OverlapBox(new Vector2(transform.position.x + 1, transform.position.y - 1), new Vector2(0.5f, 0.5f), 0, ground);
+                if (!frontBlocked && grounded)
+                {
+                    rb.velocity = Vector2.right * speed / 2;
+                }
+                else if (frontBlocked || !grounded)
+                {
+                    facingRight = false;
+                    //Flip();
+                }
             }
-            else if (frontBlocked || !grounded)
-            {
-                facingRight = false;
-                //Flip();
-            }
-        }
 
-        else if (!facingRight)
-        {
-            RaycastHit2D hitRay = Physics2D.Raycast(transform.position, Vector2.left, 1, ground);
-            Collider2D hitBoxFront = Physics2D.OverlapBox(new Vector2(transform.position.x - 1.5f, transform.position.y), new Vector2(0.5f, 0.5f), 0, ground);
-            Collider2D grounded = Physics2D.OverlapBox(new Vector2(transform.position.x - 1, transform.position.y - 1), new Vector2(0.5f, 0.5f), 0, ground);
-            if (!hitBoxFront && grounded)
+            else if (!facingRight)
             {
-                rb.velocity = Vector2.left * speed / 2;
-            }
-            else if (hitBoxFront || !grounded)
-            {
-                facingRight = true;
-                //Flip();
+                RaycastHit2D hitRay = Physics2D.Raycast(transform.position, Vector2.left, 1, ground);
+                Collider2D hitBoxFront = Physics2D.OverlapBox(new Vector2(transform.position.x - 1.5f, transform.position.y), new Vector2(0.5f, 0.5f), 0, ground);
+                Collider2D grounded = Physics2D.OverlapBox(new Vector2(transform.position.x - 1, transform.position.y - 1), new Vector2(0.5f, 0.5f), 0, ground);
+                if (!hitBoxFront && grounded)
+                {
+                    rb.velocity = Vector2.left * speed / 2;
+                }
+                else if (hitBoxFront || !grounded)
+                {
+                    facingRight = true;
+                    //Flip();
+                }
             }
         }
     }

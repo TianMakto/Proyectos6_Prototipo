@@ -18,6 +18,7 @@ public class Locomotion : MonoBehaviour
     Vector2 movement;
     bool isGrounded;
     float jumpCounter;
+    bool once;
 
     public float GetJumpforce()
     {
@@ -35,6 +36,7 @@ public class Locomotion : MonoBehaviour
     void Update()
     {
         movement.x = Input.GetAxis("Horizontal") ;
+        movement.y = Input.GetAxis("Vertical");
         isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, Ground);
 
         if (Input.GetKeyDown(KeyCode.Space) && !mylife.dead)
@@ -47,6 +49,7 @@ public class Locomotion : MonoBehaviour
             else if(jumpCounter < 2)
             {
                 jumpCounter++;
+                //GetComponent<Rigidbody2D>().
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
             }
 
@@ -80,6 +83,20 @@ public class Locomotion : MonoBehaviour
                 Vector2 movementDirection = -Vector2.Perpendicular(anchorPointDir);
                 Debug.DrawRay(this.transform.position, movementDirection, Color.red, 0.5f);
                 myRB.velocity += movementDirection * movement.x * forceSpeed * Time.deltaTime;
+            }
+
+            if(movement.y < 0)
+            {
+                if (!once)
+                {
+                    print("PEDO");
+                    myRB.velocity += new Vector2(0, -Mathf.Abs(myRB.velocity.y) * 2);
+                    once = true;
+                }
+            }
+            else if(isGrounded)
+            {
+                once = false;
             }
         }
     }

@@ -28,7 +28,9 @@ public class Knife : InventoryItem
                 {
                     if(impacts[i].collider.gameObject.tag == "Enemy")
                     {
-                        impacts[i].collider.GetComponent<Life_Base>().receiveDamage(damage);
+                        impacts[i].collider.GetComponent<Life_Base>().receiveDamage(0);
+                        Vector2 impulseDir = new Vector2(impacts[i].transform.position.x - this.transform.position.x, 0.5f);
+                        impacts[i].collider.GetComponent<Rigidbody2D>().AddForce(impulseDir * 5, ForceMode2D.Impulse);
                     }
                 }
             }
