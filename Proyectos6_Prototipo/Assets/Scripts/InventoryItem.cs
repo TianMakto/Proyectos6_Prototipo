@@ -5,15 +5,29 @@ using UnityEngine;
 public class InventoryItem : MonoBehaviour
 {
     public string name;
-    [System.NonSerialized]public float uses;
+
+    [System.NonSerialized] public static float clipUses;
+    [System.NonSerialized] public static float medKitUses;
+    [System.NonSerialized] public static float knifeUses;
+
+
+    [System.NonSerialized] public float uses;
+    //public float Uses
+    //{
+    //    get => uses;
+    //}
 
     public virtual void Use()
     {
 
     }
 
-    public void addUse()
+    public virtual void addClipUse()
     {
-        uses++;
+        clipUses++;
+    }
+    public virtual void addMedkitUse()
+    {
+        medKitUses++;
     }
 }

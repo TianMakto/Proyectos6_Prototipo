@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ClipItem : InventoryItem
 {
+    public new float uses
+    {
+        get => clipUses;
+    }
     public override void Use()
     {
-        if (uses > 0)
+        if (clipUses > 0)
         {
-            uses--;
+            clipUses--;
             transform.parent.transform.parent.transform.Find("Hand/Weapon").GetComponent<Weapon>().Recharge();
             UI_Manager.Instance.setHP();
             UI_Manager.Instance.setCurrentObject(this);

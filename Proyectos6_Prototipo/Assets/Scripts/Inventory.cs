@@ -32,13 +32,13 @@ public class Inventory : MonoBehaviour
 
     public void TakeAClip()
     {
-        transform.Find("Clip Item").GetComponent<InventoryItem>().addUse();
+        transform.Find("Clip Item").GetComponent<InventoryItem>().addClipUse();
         UI_Manager.Instance.setCurrentObject(inventory[index]);
     }
 
     public void TakeAMedkit()
     {
-        transform.Find("Medkit Item").GetComponent<InventoryItem>().addUse();
+        transform.Find("Medkit Item").GetComponent<InventoryItem>().addMedkitUse();
         UI_Manager.Instance.setCurrentObject(inventory[index]);
     }
 

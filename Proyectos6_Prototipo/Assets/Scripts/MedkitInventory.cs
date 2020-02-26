@@ -5,12 +5,16 @@ using UnityEngine;
 public class MedkitInventory : InventoryItem
 {
     [SerializeField] float healAmount = 30;
+    public new float uses
+    {
+        get => medKitUses;
+    }
 
     public override void Use()
     {
-        if(uses > 0)
+        if(medKitUses > 0)
         {
-            uses--;
+            medKitUses--;
             transform.parent.transform.parent.GetComponent<Life_Base>().Heal(healAmount);
             UI_Manager.Instance.setHP();
             UI_Manager.Instance.setCurrentObject(this);

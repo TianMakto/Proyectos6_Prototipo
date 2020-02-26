@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class Skills_and_Tools : MonoBehaviour
 {
-    void Awake()
+    /*void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
 
         if (objs.Length > 1)
         {
-            Destroy(this.gameObject);
+            Destroy(this);
         }
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this);
+    }*/
+
+    private void Start()
+    {
+        print(doubleJump + " y " + hook);
     }
 
-    bool doubleJump;
-    bool hook;
+    static bool doubleJump;
+    static bool hook;
 
     public bool hasDoubleJump()
     {

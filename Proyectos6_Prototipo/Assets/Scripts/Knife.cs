@@ -11,9 +11,14 @@ public class Knife : InventoryItem
     float timer;
     ContactFilter2D something;
 
-    private void Start()
+    public new float uses
     {
-        uses = 1;
+        get => knifeUses;
+    }
+
+    private void Awake()
+    {
+        knifeUses = 1;
     }
 
     public override void Use()
