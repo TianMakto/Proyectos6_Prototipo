@@ -20,7 +20,6 @@ public class Knife : InventoryItem
     {
         if(timer > timeBtwAttacks)
         {
-            print("Ataco");
             Physics2D.CircleCast(transform.position, attackRange, Vector2.right, something.NoFilter(), impacts);
             if(impacts.Count > 0)
             {
@@ -28,7 +27,7 @@ public class Knife : InventoryItem
                 {
                     if(impacts[i].collider.gameObject.tag == "Enemy")
                     {
-                        impacts[i].collider.GetComponent<Life_Base>().receiveDamage(0);
+                        impacts[i].collider.GetComponent<Life_Base>().receiveDamage(damage);
                         Vector2 impulseDir = new Vector2(impacts[i].transform.position.x - this.transform.position.x, 0.5f);
                         impacts[i].collider.GetComponent<Rigidbody2D>().AddForce(impulseDir * 5, ForceMode2D.Impulse);
                     }

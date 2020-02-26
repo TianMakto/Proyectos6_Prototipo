@@ -34,24 +34,27 @@ public class EnemyBase : MonoBehaviour
 
     private void Update()
     {
-        if (isGrounded)
+        if (!GetComponent<Life_Base>().dead)
         {
-            if(myState == enemyState.patrol)
+            if (isGrounded)
             {
-                Patrol();
+                if(myState == enemyState.patrol)
+                {
+                    Patrol();
+                }
+                else if(myState == enemyState.chase)
+                {
+                    Chase();
+                }
+                else
+                {
+                    Attack();
+                }
             }
-            else if(myState == enemyState.chase)
-            {
-                Chase();
-            }
-            else
-            {
-                Attack();
-            }
-        }
 
-        CheckState();
-        isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, ground);
+            CheckState();
+            isGrounded = Physics2D.OverlapBox(feet.position, new Vector2(0.4f, 0.3f), 0, ground);
+        }
     }
 
     private void CheckState()

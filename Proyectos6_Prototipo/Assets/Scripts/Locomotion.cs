@@ -46,7 +46,7 @@ public class Locomotion : MonoBehaviour
                 jumpCounter = 1;
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
             }
-            else if(jumpCounter < 2)
+            else if(jumpCounter < 2 && GetComponent<Skills_and_Tools>().hasDoubleJump())
             {
                 jumpCounter++;
                 //GetComponent<Rigidbody2D>().

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Life_Base : MonoBehaviour
 {
     [SerializeField] float maxHP;
-    float currentHP;
+    [SerializeField] float currentHP;
     [System.NonSerialized] public bool dead;
 
     //enemy
@@ -30,14 +30,17 @@ public class Life_Base : MonoBehaviour
             dead = true;
             if (!GetComponent<Locomotion>())
             {
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
+                GetComponent<SpriteRenderer>().color = Color.grey;
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<Rigidbody2D>().Sleep();
             }
         }
         if (GetComponent<Locomotion>())
         {
             UI_Manager.Instance.setHP();
         }
-        else
+        else if(currentHP > 0)
         {
             GetComponent<SpriteRenderer>().color = Color.white;
             whiteBool = true;
