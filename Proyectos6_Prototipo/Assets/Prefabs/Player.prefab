@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 4787213127440054096}
   - component: {fileID: 4787213127440054097}
   - component: {fileID: 7449931008274066571}
-  - component: {fileID: 225957066756544514}
+  - component: {fileID: 7818606507391186946}
   - component: {fileID: 4787213127440054098}
   - component: {fileID: 1181770371}
   m_Layer: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.3
-  forceSpeed: 0.5
+  forceSpeed: 0.1
   forceWalkingSpeed: 10
   jumpForce: 800
   feet: {fileID: 2402755975517932317}
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013d6f7f0c7cd624d915b96ee765cc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &225957066756544514
+--- !u!114 &7818606507391186946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

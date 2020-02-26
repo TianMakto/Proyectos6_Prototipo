@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ClipItem : InventoryItem
 {
-    public new float uses
+    private void Update()
     {
-        get => clipUses;
+        uses = clipUses;
     }
+
     public override void Use()
     {
         if (clipUses > 0)

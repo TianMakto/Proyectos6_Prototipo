@@ -5,9 +5,9 @@ using UnityEngine;
 public class MedkitInventory : InventoryItem
 {
     [SerializeField] float healAmount = 30;
-    public new float uses
+    private void Update()
     {
-        get => medKitUses;
+        uses = medKitUses;
     }
 
     public override void Use()
