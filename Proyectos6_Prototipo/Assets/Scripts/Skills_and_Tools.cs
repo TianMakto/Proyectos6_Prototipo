@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Skills_and_Tools : MonoBehaviour
 {
-    //static Skills_and_Tools instance;
+    void Awake()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
 
-    //public static Skills_and_Tools Instance
-    //{
-    //    get => instance;
-    //}
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
 
-    //private void Awake()
-    //{
-    //    instance = this;
-    //}
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     bool doubleJump;
     bool hook;

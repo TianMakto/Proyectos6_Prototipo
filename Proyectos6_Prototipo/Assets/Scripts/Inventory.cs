@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] List<InventoryItem> inventory = new List<InventoryItem>();
     int index;
+    [System.NonSerialized] public bool canUse;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class Inventory : MonoBehaviour
                     inventory.Add(transform.GetChild(i).GetComponent<InventoryItem>());
             }
         }
+        canUse = true;
         //UI_Manager.Instance.setAmo(transform.Find("Hand/Weapon").GetComponent<Weapon>().GetAmmo());
         UI_Manager.Instance.setCurrentObject(inventory[index]);
         //UI_Manager.Instance.setMedkit(medkits);
@@ -60,7 +62,7 @@ public class Inventory : MonoBehaviour
                 index = 0;
             UI_Manager.Instance.setCurrentObject(inventory[index]);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && canUse)
         {
             inventory[index].Use();
         }

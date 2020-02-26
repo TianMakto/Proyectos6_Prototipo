@@ -52,13 +52,6 @@ public class Locomotion : MonoBehaviour
                 //GetComponent<Rigidbody2D>().
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce + myRB.gravityScale));
             }
-
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -89,7 +82,6 @@ public class Locomotion : MonoBehaviour
             {
                 if (!once)
                 {
-                    print("PEDO");
                     myRB.velocity += new Vector2(0, -Mathf.Abs(myRB.velocity.y) * 2);
                     once = true;
                 }
