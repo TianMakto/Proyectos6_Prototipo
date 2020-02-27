@@ -5,6 +5,8 @@ using UnityEngine;
 public class HandAim : MonoBehaviour
 {
     [SerializeField] SpriteRenderer weaponSprite;
+    [SerializeField] List<GameObject> weapons = new List<GameObject>();
+
 
     void Update()
     {
@@ -14,5 +16,10 @@ public class HandAim : MonoBehaviour
             //print("ESTOY APUNTANDDOOOOO");
         }
         //transform.eulerAngles = new Vector3(0, 180, transform.eulerAngles.z + 180);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+        }
     }
 }
