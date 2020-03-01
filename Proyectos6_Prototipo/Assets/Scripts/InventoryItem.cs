@@ -26,6 +26,7 @@ public class InventoryItem : MonoBehaviour
     {
         clipUses++;
     }
+
     public virtual void addMedkitUse()
     {
         medKitUses++;

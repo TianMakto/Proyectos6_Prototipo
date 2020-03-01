@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorControl : MonoBehaviour
 {
     [SerializeField] GameObject door;
+    [SerializeField] Sprite used;
 
     bool playerOnSite;
 
@@ -19,6 +20,7 @@ public class DoorControl : MonoBehaviour
     public void OpenDoor()
     {
         door.GetComponent<Door>().Open();
+        GetComponent<SpriteRenderer>().sprite = used;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

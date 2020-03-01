@@ -5,8 +5,14 @@ using UnityEngine;
 public class HandAim : MonoBehaviour
 {
     [SerializeField] SpriteRenderer weaponSprite;
-    [SerializeField] List<GameObject> weapons = new List<GameObject>();
+    [SerializeField] GameObject Weapon;
+    [SerializeField] GameObject Knife;
 
+    private void Start()
+    {
+        Weapon.SetActive(true);
+        Knife.SetActive(false);
+    }
 
     void Update()
     {
@@ -19,7 +25,8 @@ public class HandAim : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-
+            Weapon.SetActive(!Weapon.activeSelf);
+            Knife.SetActive(!Knife.activeSelf);
         }
     }
 }

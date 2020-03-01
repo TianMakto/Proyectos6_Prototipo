@@ -33,7 +33,8 @@ public class Life_Base : MonoBehaviour
                 //Destroy(this.gameObject);
                 GetComponent<SpriteRenderer>().color = Color.grey;
                 GetComponent<BoxCollider2D>().enabled = false;
-                GetComponent<Rigidbody2D>().Sleep();
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                GetComponent<Rigidbody2D>().isKinematic = true;
             }
         }
         if (GetComponent<Locomotion>())

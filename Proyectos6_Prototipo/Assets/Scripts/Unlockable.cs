@@ -14,14 +14,16 @@ public class Unlockable : MonoBehaviour
             {
                 collision.GetComponent<Skills_and_Tools>().CatchDJ();
                 print("Tengo doble Salto");
+                UI_Manager.Instance.itemUnlocked("Double Jump");
                 TurnOff();
             }
             if (index == 2)
             {
                 collision.GetComponent<Skills_and_Tools>().CatchHook();
                 print("Tengo Gancho");
+                UI_Manager.Instance.itemUnlocked("Hook");
                 TurnOff();
-            }
+            }            
         }
     }
 

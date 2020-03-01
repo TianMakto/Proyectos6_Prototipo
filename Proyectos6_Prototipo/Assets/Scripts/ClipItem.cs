@@ -15,7 +15,10 @@ public class ClipItem : InventoryItem
         {
             clipUses--;
             transform.parent.transform.parent.transform.Find("Hand/Weapon").GetComponent<Weapon>().Recharge();
-            UI_Manager.Instance.setHP();
+            //UI_Manager.Instance.setHP();
+            uses = clipUses;
+            print(name + ": " + uses);
+            UI_Manager.Instance.setCurrentObject(this);
             UI_Manager.Instance.setCurrentObject(this);
         }
 

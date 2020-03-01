@@ -71,8 +71,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 85eca6471ced6a149902964daadfd444, type: 3}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Sprite: {fileID: 7302049995358876697, guid: 0936fd96f090b9042a932b52c007116f,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
+  used: {fileID: -889734080675829032, guid: 0936fd96f090b9042a932b52c007116f, type: 3}
 --- !u!61 &3643961576139459156
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knife : InventoryItem
+public class Knife : MonoBehaviour
 {
     [SerializeField] float attackRange;
     [SerializeField] float timeBtwAttacks;
@@ -11,19 +11,19 @@ public class Knife : InventoryItem
     float timer;
     ContactFilter2D something;
 
-    public new float uses
-    {
-        get => knifeUses;
-    }
+    //public new float uses
+    //{
+    //    get => knifeUses;
+    //}
 
     private void Awake()
     {
-        knifeUses = 1;
+        //knifeUses = 1;
     }
 
-    public override void Use()
+    public void Stab()
     {
-        if(timer > timeBtwAttacks)
+        //if(timer > timeBtwAttacks)
         {
             Physics2D.CircleCast(transform.position, attackRange, Vector2.right, something.NoFilter(), impacts);
             if(impacts.Count > 0)
@@ -44,6 +44,15 @@ public class Knife : InventoryItem
     }
     private void Update()
     {
-        timer += Time.deltaTime;
+        if(timer <= timeBtwAttacks)
+        {
+            timer += Time.deltaTime;
+        }
+        if (Input.GetMouseButtonDown(0) && timer > timeBtwAttacks && !transform.parent.GetComponent<Life_Base>().dead)
+        {
+            Stab();
+            GetComponent<Animator>().SetTrigger("Attack");
+            print("Cuchillazo");
+        }
     }
 }
